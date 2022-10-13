@@ -42,6 +42,22 @@ export class PostsService {
     });
   }
 
+  getPostById(id: string){
+    return this.http.get<{_id: string, title: string, content: string}>('http://localhost:3000/api/posts/' + id);
+  }
+
+  updatePost(id: string, title: string, content: string){
+    const post = {id: id, title: title, content: content};
+    this.http.put('http://localhost:3000/api/posts/' + id, post).subscribe(data => {
+      console.log(data);
+      const updatedPosts = [...this.posts];
+      const oldIndex = updatedPosts.findIndex(post => post.id === post.id);
+      updatedPosts[oldIndex] = post;
+      this.posts = updatedPosts;
+      this.postsUpdated.next([...this.posts]);
+    })
+  }
+
   deletePost(postId: string) {
     this.http.delete('http://localhost:3000/api/posts/' + postId).subscribe(() => {
       const updatedPosts = this.posts.filter(post => post.id !== postId)
