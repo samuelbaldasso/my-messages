@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const Post = require("./models/db");
 const mongoose = require("mongoose");
 
-const uri = `mongodb+srv://sam:AxB5AfOLZzL97Sot@cluster0.4hwli.mongodb.net/node-angular?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://sam:N26X4jyjUoezb5Ko@cluster0.4hwli.mongodb.net/node-angular?retryWrites=true&w=majority`;
 mongoose
   .connect(uri)
   .then(() => {
@@ -30,10 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  console.log("First middleware");
-  next();
-});
 
 app.post("/api/posts", (req, res, next) => {
   const post = new Post({
